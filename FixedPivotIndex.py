@@ -21,7 +21,7 @@ class Solution:
             return sum        
     #soln
     def pivotIndex(self, nums: List[int]) -> int:
-        for i in range(nums):
+        for i in range(len(nums)):
             if self.sumRight(i , nums) == self.sumLeft(i , nums):
                 return i
         return -1
