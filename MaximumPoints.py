@@ -1,17 +1,20 @@
 class Solution:
-    def sum(self , array):
-        sum = 0
-        for i in array:
-            sum += i
-        return sum
-    
     def maxScore(self, cardPoints: List[int], k: int) -> int:
-        if k == len(cardPoints):
-            return self.sum(cardPoints)
-        else:
-            fromStart = self.sum(cardPoints[0 : k])
-            fromEnd = self.sum(cardPoints[len(cardPoints) - k : len(cardPoints)])
-            if fromStart > fromEnd:
-                return fromStart
-            else:
-                return fromEnd
+        n = len(cardPoints)
+        
+        total= sum(cardPoints)
+        
+        window_size = n - k
+        max_score = 0
+        
+        sumOfWindow = sum(cardPoints[:window_size])
+        
+        i = 0
+        while i + window_size <= n:
+            if i > 0:
+                sumOfWindow -= cardPoints[i-1]
+                sumOfWindow += cardPoints[i+window_size-1]
+            max_score = max(max_score, total - sumOfWindow)
+            i += 1
+        
+        return max_score
